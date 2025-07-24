@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Armaan Rider | Daily Vlogs</title>
+    <title>Arman Rider | Daily Vlogs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
     <style>
@@ -15,6 +15,8 @@
             --mac-card: rgba(255, 255, 255, 0.85);
             --bike-red: #e53935;
             --bike-orange: #ff6d00;
+            --notice-bg: rgba(255, 255, 255, 0.95);
+            --notice-header: #2c3e50;
         }
         
         * {
@@ -336,6 +338,15 @@
             background: rgba(255, 255, 255, 0.2);
         }
         
+        .fab-option.email {
+            background: linear-gradient(to right, #bb001b, #ff6b6b);
+            color: white;
+        }
+        
+        .fab-option.email i {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
         .fab-main {
             width: 70px;
             height: 70px;
@@ -393,6 +404,135 @@
         .bike-animation i {
             font-size: 150px;
             color: var(--bike-orange);
+        }
+        
+        /* Notice Panel Styles */
+        .fab-container-notice {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .notice-panel {
+            width: 320px;
+            max-height: 80vh;
+            background: var(--notice-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            transform: translateX(-400px);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .notice-panel.active {
+            transform: translateX(0);
+        }
+        
+        .notice-header {
+            background: var(--notice-header);
+            color: white;
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--bike-orange);
+        }
+        
+        .notice-header h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .close-notice {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .close-notice:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .notice-content {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        
+        .notice-tile {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--bike-orange);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .notice-tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .notice-tile h4 {
+            color: var(--bike-red);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .notice-tile p {
+            color: #444;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+        
+        .notice-tile .date {
+            display: block;
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        
+        .fab-notice {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 20px rgba(44, 62, 80, 0.4);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .fab-notice:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(44, 62, 80, 0.6);
         }
         
         /* Animations */
@@ -480,10 +620,21 @@
                 right: 20px;
             }
             
+            .fab-container-notice {
+                bottom: 20px;
+                left: 20px;
+            }
+            
             .fab-main {
                 width: 60px;
                 height: 60px;
                 font-size: 24px;
+            }
+            
+            .fab-notice {
+                width: 55px;
+                height: 55px;
+                font-size: 20px;
             }
             
             .fab-option {
@@ -494,6 +645,11 @@
             
             .buttons-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .notice-panel {
+                width: 300px;
+                max-height: 70vh;
             }
         }
         
@@ -509,6 +665,11 @@
             .bio p {
                 font-size: 14px;
             }
+            
+            .notice-panel {
+                width: 280px;
+                max-height: 65vh;
+            }
         }
     </style>
 </head>
@@ -520,16 +681,16 @@
     
     <div class="container">
         <div class="header">
-            <h1>ARMAAN RIDER</h1>
+            <h1>Arman RIDER</h1>
             <p class="tagline">DAILY VLOGS & MOTORCYCLE ADVENTURES</p>
         </div>
         
         <div class="profile-card">
             <div class="profile-photo-container">
-                <img src="ar.png" alt="Armaan Rider" class="profile-photo" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80'">
+                <img src="ar.png" alt="Arman Rider" class="profile-photo" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80'">
             </div>
             
-            <h1>Armaan Rider | Daily Vlogs</h1>
+            <h1>Arman Rider | Daily Vlogs</h1>
             <p class="tagline">Light-hearted videos designed to lift your mood</p>
             
             <div class="bio">
@@ -541,11 +702,11 @@
             
             <h2 class="section-title">Featured Links</h2>
             <div class="buttons-grid">
-                <a href="" class="btn games"><!-- Motorcycle Animation -->
+                <a href="" class="btn games">
                     <i class="fas fa-gamepad"></i>
                     <span>Raja Games</span>
                 </a>
-                <a href="" class="btn telegram">  <!-- Motorcycle Animation -->
+                <a href="" class="btn telegram">
                     <i class="fab fa-telegram"></i>
                     <span>Telegram Predictions</span>
                 </a>
@@ -573,12 +734,12 @@
         </div>
         
         <div class="footer">
-            © 2023 Armaan Rider | Ride Along With Me<br>
+            © 2023 Arman Rider | Ride Along With Me<br>
             Every journey is a story - let's make yours unforgettable
         </div>
     </div>
     
-    <!-- FAB Container -->
+    <!-- Contact FAB Container -->
     <div class="fab-container">
         <div class="fab-options">
             <a href="tel:+919622524763" class="fab-option phone">
@@ -589,10 +750,59 @@
                 <span>Text on WhatsApp</span>
                 <i class="fab fa-whatsapp"></i>
             </a>
+            <a href="mailto:arman@gmail.com" class="fab-option email">
+                <span>Send Email</span>
+                <i class="fas fa-envelope"></i>
+            </a>
         </div>
         
         <button class="fab-main" id="fabMain">
             <i class="fas fa-phone-alt"></i>
+        </button>
+    </div>
+    
+    <!-- Notice FAB Container -->
+    <div class="fab-container-notice">
+        <div class="notice-panel" id="noticePanel">
+            <div class="notice-header">
+                <h3>Latest Notices</h3>
+                <button class="close-notice" id="closeNotice">&times;</button>
+            </div>
+            <div class="notice-content">
+                <div class="notice-tile">
+                    <h4>Upcoming Ride Event</h4>
+                    <p>Join me this Sunday for a special group ride through the mountains! We'll be exploring scenic routes and stopping at amazing viewpoints.</p>
+                    <span class="date">Posted: Oct 12, 2023</span>
+                </div>
+                
+                <div class="notice-tile">
+                    <h4>New Vlog Series</h4>
+                    <p>Starting next week, I'll be launching a new series: "Bike Maintenance Tips". Learn how to keep your motorcycle in top condition!</p>
+                    <span class="date">Posted: Oct 8, 2023</span>
+                </div>
+                
+                <div class="notice-tile">
+                    <h4>Merchandise Launch</h4>
+                    <p>Official Arman Rider merchandise is coming soon! T-shirts, caps, and stickers will be available for pre-order next month.</p>
+                    <span class="date">Posted: Oct 3, 2023</span>
+                </div>
+                
+                <div class="notice-tile">
+                    <h4>Community Meetup</h4>
+                    <p>Monthly meetup at Rider's Cafe this Saturday at 4 PM. Bring your bikes and stories to share with fellow riders!</p>
+                    <span class="date">Posted: Sep 28, 2023</span>
+                </div>
+                
+                <div class="notice-tile">
+                    <h4>Channel Milestone</h4>
+                    <p>We just crossed 500K subscribers! Thank you all for your amazing support. Special celebration video coming soon.</p>
+                    <span class="date">Posted: Sep 25, 2023</span>
+                </div>
+            </div>
+        </div>
+        
+        <button class="fab-notice" id="fabNotice">
+            <i class="fas fa-bullhorn"></i>
         </button>
     </div>
 
@@ -626,6 +836,28 @@
                 fabOptions.forEach(option => {
                     option.classList.remove('visible');
                 });
+            }
+        });
+        
+        // Notice Panel functionality
+        const fabNotice = document.getElementById('fabNotice');
+        const noticePanel = document.getElementById('noticePanel');
+        const closeNotice = document.getElementById('closeNotice');
+        
+        fabNotice.addEventListener('click', () => {
+            noticePanel.classList.toggle('active');
+        });
+        
+        closeNotice.addEventListener('click', () => {
+            noticePanel.classList.remove('active');
+        });
+        
+        // Close notice panel when clicking outside
+        document.addEventListener('click', (e) => {
+            if (noticePanel.classList.contains('active') && 
+                !fabNotice.contains(e.target) && 
+                !noticePanel.contains(e.target)) {
+                noticePanel.classList.remove('active');
             }
         });
         
